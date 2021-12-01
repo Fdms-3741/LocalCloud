@@ -17,6 +17,7 @@ This project will contain these containers for essencial functionality:
 The inital services will be as follow: 
 
 | name | description |
+| --- | --- |
 | nextcloud | Personal cloud |
 | portainer | Container management |
 
@@ -24,25 +25,25 @@ The main objective is to configure everything so that a user wanting to access a
 
 ## Projects goals
 
-[] Configure Postgresql
-	[] Set initalization script that creates an user and database for each application
+* Configure Postgresql
+ * Set initalization script that creates an user and database for each application
 
-[] Configure bind9
-	[] Configure main configuration file to set bind9 as an authoritative server
-	[] Find where the server-name is filled
-	[] Find how to add new services under the server-name domain
+* Configure bind9
+ * Configure main configuration file to set bind9 as an authoritative server
+ * Find where the server-name is filled
+ * Find how to add new services under the server-name domain
 
-[] Configure nginx
-	[] Set up to proxy by https with a self-signed certificate
-	[] Configure Fast-CGI (for nextcloud)
-	[] Set up each proxy for each application, separated by server name
+* Configure nginx
+ * Set up to proxy by https with a self-signed certificate
+ * Configure Fast-CGI (for nextcloud)
+ * Set up each proxy for each application, separated by server name
 
-[] Verify if any configuration is required to nextcloud
-[] Verify if any configuration is required to portainer
+* Verify if any configuration is required to nextcloud
+* Verify if any configuration is required to portainer
 
-[] Provide step-by-step solution to add a new service
+* Provide step-by-step solution to add a new service
 
-[] Provide an script to execute the previous step-by-step
+* Provide an script to execute the previous step-by-step
 
 
 # How to use
