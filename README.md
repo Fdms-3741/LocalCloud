@@ -26,17 +26,17 @@ The main objective is to configure everything so that a user wanting to access a
 ## Projects goals
 
 * Configure Postgresql
- * Set initalization script that creates an user and database for each application
+	* Set initalization script that creates an user and database for each application
 
 * Configure bind9
- * Configure main configuration file to set bind9 as an authoritative server
- * Find where the server-name is filled
- * Find how to add new services under the server-name domain
+	* Configure main configuration file to set bind9 as an authoritative server
+	* Find where the server-name is filled
+	* Find how to add new services under the server-name domain
 
 * Configure nginx
- * Set up to proxy by https with a self-signed certificate
- * Configure Fast-CGI (for nextcloud)
- * Set up each proxy for each application, separated by server name
+	* Set up to proxy by https with a self-signed certificate
+	* Configure Fast-CGI (for nextcloud)
+	* Set up each proxy for each application, separated by server name
 
 * Verify if any configuration is required to nextcloud
 * Verify if any configuration is required to portainer
