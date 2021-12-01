@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  # Web server to proxy all external connections 
+  nginx:
+    image: nginx
+    volumes:
+      - "$(CWD)etc/nginx/conf.d/:/etc/nginx/conf.d/:ro" # Configuration of each application's proxy
+      - "$(CWD)etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro" # Main server configs
+      - "$(CWD)etc/nginx/www:/var/www/html" # Can serve a default page in case of no chosen application
+      - "nextcloud_data:/shared/nextcloud" # Shared mount with the nginx server as nextcloud cant change files as proxy
+    ports:
+      - "80:80"
+  
+  # DNS authoritative server for current server, names applications on stack
+  dns:
+    image: internetsystemsconsortium/bind9:9.16
+    ports:
+      - "53:53/udp"
+      - "53:55/tcp"
+    volumes:
+      - "$(CWD)etc/bind:/etc/bind" # Configuration file
+      - "$(CWD)var/cache/bind:/var/cache/bind" # Names for the authoritative server
+      - "$(CWD)var/lib/bind:/var/lib/bind" # Names for each application on stack
+
+
+  # Database for applications
+  postgresql:
+    image: postgres
+    volumes: 
+      - "$(CWD)postgres/:/var/lib/postgresql/data" # Database data
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/database_password
+    secrets:
+      - nextcloud_database_password
+
+  # Personal cloud
+  nextcloud:
+    image: nextcloud:fpm
+    environment:
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_HOST: postgresql
+      POSTGRES_PASSWORD_FILE: /run/secrets/database_password"
+    volumes:
+      - "nextcloud_data:/var/www/html"
+    depends_on:
+      - postgresql
+
+
+volumes:
+  nextcloud_data: "$(CWD)var/nextcloud"
+
+
+secrets:
+  nextcloud_database_password:
+    file: "$(CWD)secrets/nextcloud_database_password"
